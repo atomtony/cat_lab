@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class CatServletFilter implements Filter {
-	
+
     private String[] urlPatterns = new String[0];
 
     @Override
@@ -42,8 +42,8 @@ public class CatServletFilter implements Filter {
         catContext.addProperty(Cat.Context.PARENT, request.getHeader(CatHttpConstants.CAT_HTTP_HEADER_PARENT_MESSAGE_ID));
         catContext.addProperty(Cat.Context.CHILD, request.getHeader(CatHttpConstants.CAT_HTTP_HEADER_CHILD_MESSAGE_ID));
         Cat.logRemoteCallServer(catContext);
-        
-        Transaction t = Cat.newTransaction(CatConstants.TYPE_SERVICE, url);
+
+        Transaction t = Cat.newTransaction(CatConstants.TYPE_URL, url);
         try {
 
             Cat.logEvent("Service.method", request.getMethod(), Message.SUCCESS, request.getRequestURL().toString());

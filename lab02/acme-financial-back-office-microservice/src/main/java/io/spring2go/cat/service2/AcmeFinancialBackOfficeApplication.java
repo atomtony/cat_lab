@@ -69,7 +69,7 @@ public class AcmeFinancialBackOfficeApplication {
 
 	@RequestMapping("/readtimeout")
 	public String connectionTimeout() throws InterruptedException {
-		Transaction t = Cat.newTransaction(CatConstants.TYPE_CALL, "connectionTimeout");
+		Transaction t = Cat.newTransaction(CatConstants.TYPE_REMOTE_CALL, "connectionTimeout");
 		Thread.sleep(500);
 		try {
 			log.info("Calling a missing service");
@@ -90,10 +90,10 @@ public class AcmeFinancialBackOfficeApplication {
 		clientHttpRequestFactory.setConnectTimeout(2000);
 		clientHttpRequestFactory.setReadTimeout(3000);
 		RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-		
+
 		// 保存和传递调用链上下文
 		restTemplate.setInterceptors(Collections.singletonList(new CatRestInterceptor()));
-		
+
 		restTemplate.setErrorHandler(new DefaultResponseErrorHandler() {
 			@Override public boolean hasError(ClientHttpResponse response)
 					throws IOException {
